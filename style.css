@@ -13,118 +13,75 @@ body {
   position: relative;
 }
 
-/* Background overlay to control opacity */
+/* Background overlay with 50% opacity */
 .background-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  opacity: 0.5; /* 50% opacity */
+  opacity: 0.5;
   z-index: -1;
   pointer-events: none;
 }
 
-/* Background images for body classes */
-body.bg-black .background-overlay {
-  background-image: url('images/bg-black.jpg');
+/* Single background image for all pages */
+body.bg-all .background-overlay {
+  background-image: url('images/bg-all.jpg');
 }
 
-body.bg-red .background-overlay {
-  background-image: url('images/bg-red.jpg');
-}
-
-/* Main page container */
-.main-container {
-  max-width: 700px;
-  margin: 40px auto;
-  text-align: center;
-  padding: 20px;
-  position: relative;
-  z-index: 1;
-}
-
-/* Title image on main page */
-.title-image {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 40px;
-}
-
-/* Deck selection grid */
-.deck-selection {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
-  justify-items: center;
-  font-size: 6rem;
-  cursor: pointer;
-  user-select: none;
-  color: black;
-  max-width: 600px;
-  margin: 0 auto;
-  padding-bottom: 60px;
-  position: relative;
-  z-index: 1;
-}
-
-.deck:hover {
-  color: #d22; /* subtle red hover */
-}
-
-/* Cards grid container */
+/* Cards container grid */
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr 1fr; /* 3 columns for 2-K cards */
+  grid-template-rows: auto repeat(4, 1fr); /* Ace row + 4 rows below */
   gap: 20px;
   max-width: 900px;
-  margin: 30px auto;
-  padding: 0 10px 40px 10px;
+  margin: 30px auto 60px;
+  padding: 0 10px;
   justify-items: center;
   position: relative;
   z-index: 1;
 }
 
-/* Individual card styling */
+/* Ace card spans all 3 columns, centered on top */
+.ace-card {
+  grid-column: 1 / span 3;
+  grid-row: 1;
+}
+
+/* Individual card style */
 .card img {
   width: 100%;
-  max-width: 180px;
+  max-width: 200px;
   height: auto;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   user-select: none;
+  display: block;
 }
 
-/* Responsive layouts */
+/* Responsive adjustments */
 @media (max-width: 900px) {
   .cards-container {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto repeat(8, 1fr);
+  }
+  .ace-card {
+    grid-column: 1 / span 2;
   }
   .card img {
-    max-width: 140px;
+    max-width: 150px;
   }
 }
 
 @media (max-width: 600px) {
-  .deck-selection {
-    grid-template-columns: repeat(2, 1fr);
-    font-size: 5rem;
-  }
-  .cards-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .card img {
-    max-width: 120px;
-  }
-}
-
-@media (max-width: 400px) {
-  .deck-selection {
-    grid-template-columns: 1fr;
-    font-size: 4rem;
-  }
   .cards-container {
     grid-template-columns: 1fr;
+    grid-template-rows: auto repeat(13, 1fr);
+  }
+  .ace-card {
+    grid-column: 1;
   }
   .card img {
     max-width: 100%;
