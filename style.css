@@ -6,14 +6,32 @@
 }
 
 body {
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain; /* show full background */
-  background-attachment: scroll; /* background scrolls normally */
   font-family: 'Georgia', serif;
   min-height: 100vh;
   overflow-x: hidden;
   color: #111;
+  position: relative;
+}
+
+/* Background overlay to control opacity */
+.background-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.5; /* 50% opacity */
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Background images for body classes */
+body.bg-black .background-overlay {
+  background-image: url('images/bg-black.jpg');
+}
+
+body.bg-red .background-overlay {
+  background-image: url('images/bg-red.jpg');
 }
 
 /* Main page container */
@@ -22,6 +40,8 @@ body {
   margin: 40px auto;
   text-align: center;
   padding: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 /* Title image on main page */
@@ -44,6 +64,8 @@ body {
   max-width: 600px;
   margin: 0 auto;
   padding-bottom: 60px;
+  position: relative;
+  z-index: 1;
 }
 
 .deck:hover {
@@ -59,6 +81,8 @@ body {
   margin: 30px auto;
   padding: 0 10px 40px 10px;
   justify-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 /* Individual card styling */
