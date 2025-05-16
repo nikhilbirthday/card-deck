@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cards</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="cards-container"></div>
+
+<script>
+  // Get deck from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const deck = urlParams.get('deck') || 'hearts';
+
+  // Card values
+  const cards = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+
+  const container = document.querySelector('.cards-container');
+
+  // Set background based on deck color
+  if(deck === 'hearts' || deck === 'diamonds') {
+    document.body.style.backgroundImage = "url('images/bg-red.jpg')";
+  } else {
+    document.body.style.backgroundImage = "url('images/bg-black.jpg')";
+  }
+
+  // Create card images
+  cards.forEach(card => {
+    const cardDiv = document.createElement('div');
+    cardDiv.classList.add('card');
+
+    const img = document.createElement('img');
+    img.src = `images/${deck}-${card}.jpg`;  // your naming style with dash
+    img.alt = `${card} of ${deck}`;
+    cardDiv.appendChild(img);
+
+    container.appendChild(cardDiv);
+  });
+</script>
+
+</body>
+</html>
