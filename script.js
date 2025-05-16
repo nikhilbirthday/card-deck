@@ -1,93 +1,69 @@
 const decksEl = document.getElementById('decks');
 const cardsEl = document.getElementById('cards');
 const backBtn = document.getElementById('backToDecks');
+const titleImage = document.getElementById('title-image');
 
-// Define card ranks
 const ranks = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
 
-// Function to clear cards container
+// Helper: Load background based on deck
+function setBackground(deck) {
+  if(deck === 'hearts' || deck === 'diamonds') {
+    document.body.style.backgroundImage = "url('images/bg-red.jpg')";
+  } else if(deck === 'clubs' || deck === 'spades') {
+    document.body.style.backgroundImage = "url('images/bg-black.jpg')";
+  } else {
+    // main page or unknown
+    document.body.style.backgroundImage = "url('images/bg-black.jpg')";
+  }
+}
+
 function clearCards() {
   cardsEl.innerHTML = '';
 }
 
-// Show decks view
+// Show decks (main page)
 function showDecks() {
   decksEl.style.display = 'grid';
   cardsEl.style.display = 'none';
   backBtn.style.display = 'none';
+  titleImage.style.display = 'block';
+  setBackground('main');
 }
 
-// Show cards for a selected deck
+// Show all cards of a suit
 function showCards(deck) {
   clearCards();
   decksEl.style.display = 'none';
   cardsEl.style.display = 'grid';
   backBtn.style.display = 'inline-block';
+  titleImage.style.display = 'none';
+  setBackground(deck);
 
-  ranks.forEach(rank => {
+  // Build cards grid with A at top center (approx)
+  // We'll just list A first then the rest to keep it simple.
+  const sortedRanks = ['A', ...ranks.filter(r => r !== 'A')];
+
+  sortedRanks.forEach(rank => {
     const card = document.createElement('div');
     card.className = 'card';
-    card.textContent = rank;
-    card.dataset.deck = deck;
-    card.dataset.rank = rank;
+    const img = document.createElement('img');
+    img.src = `images/${deck}-${rank}.jpg`;
+    img.alt = `${rank} of ${deck}`;
+    card.appendChild(img);
     cardsEl.appendChild(card);
-  });
-}
-
-// Show flipping front/back images for a card
-function showCardFlip(deck, rank) {
-  cardsEl.innerHTML = '';
-
-  const flipCard = document.createElement('div');
-  flipCard.className = 'flip-card';
-
-  const flipInner = document.createElement('div');
-  flipInner.className = 'flip-card-inner';
-
-  const front = document.createElement('div');
-  front.className = 'flip-card-front';
-  const frontImg = document.createElement('img');
-  frontImg.src = `images/${deck}-${rank}-front.jpg`;
-  frontImg.alt = `${rank} of ${deck} front`;
-  front.appendChild(frontImg);
-
-  const back = document.createElement('div');
-  back.className = 'flip-card-back';
-  const backImg = document.createElement('img');
-  backImg.src = `images/${deck}-${rank}-back.jpg`;
-  backImg.alt = `${rank} of ${deck} back`;
-  back.appendChild(backImg);
-
-  flipInner.appendChild(front);
-  flipInner.appendChild(back);
-  flipCard.appendChild(flipInner);
-
-  cardsEl.appendChild(flipCard);
-
-  // Flip on click
-  flipCard.addEventListener('click', () => {
-    flipCard.classList.toggle('flipped');
   });
 }
 
 decksEl.addEventListener('click', e => {
   const deckCard = e.target.closest('.deck-card');
-  if (!deckCard) return;
+  if(!deckCard) return;
   const deck = deckCard.dataset.deck;
   showCards(deck);
-});
-
-cardsEl.addEventListener('click', e => {
-  const card = e.target.closest('.card');
-  if (!card) return;
-  const deck = card.dataset.deck;
-  const rank = card.dataset.rank;
-  showCardFlip(deck, rank);
 });
 
 backBtn.addEventListener('click', () => {
   showDecks();
 });
 
-// Start with decks view
+// Initialize
 showDecks();
