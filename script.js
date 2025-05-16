@@ -1,69 +1,59 @@
-const decksEl = document.getElementById('decks');
-const cardsEl = document.getElementById('cards');
-const backBtn = document.getElementById('backToDecks');
-const titleImage = document.getElementById('title-image');
+// script.js
 
-const ranks = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+// Cards order and deck suits
+const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
+const cardsOrder = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
-// Helper: Load background based on deck
-function setBackground(deck) {
-  if(deck === 'hearts' || deck === 'diamonds') {
-    document.body.style.backgroundImage = "url('images/bg-red.jpg')";
-  } else if(deck === 'clubs' || deck === 'spades') {
-    document.body.style.backgroundImage = "url('images/bg-black.jpg')";
-  } else {
-    // main page or unknown
-    document.body.style.backgroundImage = "url('images/bg-black.jpg')";
+// Get the deck param from URL
+function getDeckFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const deck = params.get('deck');
+  if (deck && suits.includes(deck.toLowerCase())) {
+    return deck.toLowerCase();
   }
+  return null;
 }
 
-function clearCards() {
-  cardsEl.innerHTML = '';
+function createCardElement(deck, rank) {
+  const cardDiv = document.createElement('div');
+  cardDiv.className = 'card';
+
+  const img = document.createElement('img');
+  img.alt = `${rank} of ${deck}`;
+  img.src = `images/${deck}-${rank}.jpg`;
+  cardDiv.appendChild(img);
+
+  return cardDiv;
 }
 
-// Show decks (main page)
-function showDecks() {
-  decksEl.style.display = 'grid';
-  cardsEl.style.display = 'none';
-  backBtn.style.display = 'none';
-  titleImage.style.display = 'block';
-  setBackground('main');
-}
+function renderCards(deck) {
+  const container = document.querySelector('.cards-container');
+  container.innerHTML = ''; // Clear previous cards if any
 
-// Show all cards of a suit
-function showCards(deck) {
-  clearCards();
-  decksEl.style.display = 'none';
-  cardsEl.style.display = 'grid';
-  backBtn.style.display = 'inline-block';
-  titleImage.style.display = 'none';
-  setBackground(deck);
+  // Create and append Ace card first, with special class for positioning
+  const aceCard = createCardElement(deck, 'A');
+  aceCard.classList.add('ace-card');
+  container.appendChild(aceCard);
 
-  // Build cards grid with A at top center (approx)
-  // We'll just list A first then the rest to keep it simple.
-  const sortedRanks = ['A', ...ranks.filter(r => r !== 'A')];
-
-  sortedRanks.forEach(rank => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    const img = document.createElement('img');
-    img.src = `images/${deck}-${rank}.jpg`;
-    img.alt = `${rank} of ${deck}`;
-    card.appendChild(img);
-    cardsEl.appendChild(card);
+  // Create cards 2-K in order
+  const ranks = cardsOrder.slice(1); // Remove Ace
+  ranks.forEach(rank => {
+    const card = createCardElement(deck, rank);
+    container.appendChild(card);
   });
 }
 
-decksEl.addEventListener('click', e => {
-  const deckCard = e.target.closest('.deck-card');
-  if(!deckCard) return;
-  const deck = deckCard.dataset.deck;
-  showCards(deck);
-});
+function showError(message) {
+  const container = document.querySelector('.cards-container');
+  container.innerHTML = `<p style="text-align:center; font-size:1.2rem; padding: 40px;">${message}</p>`;
+}
 
-backBtn.addEventListener('click', () => {
-  showDecks();
-});
+document.addEventListener('DOMContentLoaded', () => {
+  const deck = getDeckFromURL();
+  if (!deck) {
+    showError('Invalid deck selected. Please go back and choose a valid deck.');
+    return;
+  }
 
-// Initialize
-showDecks();
+  renderCards(deck);
+});
