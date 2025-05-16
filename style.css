@@ -1,32 +1,42 @@
-body {
+/* Reset & base */
+body, html {
+  margin: 0; padding: 0;
+  height: 100%;
   font-family: 'Georgia', serif;
-  background: #fff;
   color: #111;
-  margin: 0; padding: 20px;
-  display: flex; justify-content: center; align-items: center;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-h1 {
-  margin-bottom: 40px;
-  font-weight: normal;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .container {
-  max-width: 800px;
-  width: 100%;
-  text-align: center;
+  max-width: 960px;
+  margin: auto;
+  padding: 20px;
+  background: rgba(255,255,255,0.85);
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
-.deck-grid, .card-grid {
+/* Title image */
+#title-image {
+  display: block;
+  max-width: 400px;
+  width: 80vw;
+  margin: 0 auto 40px auto;
+  height: auto;
+}
+
+/* Deck grid */
+.deck-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 20px;
+  gap: 25px;
   justify-items: center;
+  margin-bottom: 30px;
 }
 
-.deck-card, .card {
+.deck-card {
   cursor: pointer;
   background: white;
   border: 2px solid black;
@@ -43,7 +53,7 @@ h1 {
   position: relative;
 }
 
-.deck-card:hover, .card:hover {
+.deck-card:hover {
   transform: scale(1.05);
 }
 
@@ -58,56 +68,41 @@ h1 {
 
 .deck-label {
   margin-top: 10px;
-  font-size: 1.2rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-/* Flip card container */
-.flip-card {
-  perspective: 1000px;
+/* Card grid for all cards of a deck */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+  justify-items: center;
+  margin-top: 20px;
 }
 
-.flip-card-inner {
-  position: relative;
+.card {
   width: 120px;
   height: 160px;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  cursor: pointer;
-  margin: auto;
   border-radius: 12px;
+  overflow: hidden;
   box-shadow: 2px 4px 8px rgba(0,0,0,0.15);
-}
-
-.flip-card.flipped .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-.flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 120px;
-  height: 160px;
-  backface-visibility: hidden;
-  border-radius: 12px;
+  cursor: pointer;
   background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  user-select: none;
+  transition: transform 0.3s ease;
 }
 
-.flip-card-front img, .flip-card-back img {
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 12px;
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
-.flip-card-back {
-  transform: rotateY(180deg);
-  position: absolute;
-  top: 0; left: 0;
+.card:hover {
+  transform: scale(1.05);
 }
 
 /* Back button */
@@ -124,4 +119,19 @@ h1 {
 
 #backToDecks:hover {
   background-color: #f0f0f0;
+}
+
+/* Responsive: bigger cards on bigger screens */
+@media(min-width: 768px) {
+  .deck-card, .card {
+    width: 140px;
+    height: 190px;
+  }
+}
+
+@media(min-width: 1024px) {
+  .deck-card, .card {
+    width: 160px;
+    height: 220px;
+  }
 }
