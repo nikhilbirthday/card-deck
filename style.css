@@ -1,157 +1,137 @@
-/* Reset */
+/* General resets and base */
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
-  font-family: 'Georgia', serif;
-  min-height: 100vh;
-  overflow-x: hidden;
-  color: #111;
+body, html {
+  height: 100%;
+  font-family: 'Times New Roman', serif;
+  background: url('images/bg-all.jpg') no-repeat center center;
+  background-size: cover;
   position: relative;
+  color: #000;
 }
 
-/* Background overlay with 50% opacity */
 .background-overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  opacity: 0.5;
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* Single background image for all pages */
-body.bg-all .background-overlay {
-  background-image: url('images/bg-all.jpg');
-}
-
-/* Main container and title image (index.html) */
-.main-container {
-  max-width: 600px;
-  margin: 60px auto 40px;
-  padding: 0 20px;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-}
-
-.title-image {
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 400px;
-  height: auto;
-  margin-bottom: 40px;
-  user-select: none;
+  height: 100%;
+  background: rgba(0,0,0,0.5); /* 50% opacity black overlay */
+  z-index: -1;
 }
 
-/* Deck container for 4 suits (index.html) */
+/* Main container */
+
+.main-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Title box */
+
+.title-box {
+  background-color: rgba(255, 255, 255, 0.6); /* semi-opaque white */
+  color: #000;
+  font-size: 3rem;
+  font-weight: 700;
+  font-family: 'Times New Roman', serif;
+  text-align: center;
+  padding: 2rem 3rem;
+  border-radius: 15px;
+  max-width: 350px;
+  margin: 2rem auto 3rem auto;
+  line-height: 1.2;
+  user-select: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Deck container - the 4 deck links */
+
 .deck-container {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 2.5rem;
   flex-wrap: wrap;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
-/* Individual deck cards style (index.html) */
+/* Each deck card styling */
+
 .deck-card {
   font-size: 5rem;
-  width: 90px;
-  height: 130px;
+  text-decoration: none;
+  padding: 1rem 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  user-select: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 15px;
-  cursor: pointer;
-  text-decoration: none;
-  color: #fff;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.25);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  user-select: none;
+  width: 100px;
+  height: 140px;
 }
 
 /* Deck colors */
-.deck-card.hearts, .deck-card.diamonds {
-  background-color: #d62828; /* red */
+
+.deck-card.hearts {
+  color: #b22222; /* firebrick red */
+  background-color: #ffe6e6; /* light red background */
+  border: 2px solid #b22222;
 }
 
-.deck-card.clubs, .deck-card.spades {
-  background-color: #111; /* black */
+.deck-card.diamonds {
+  color: #d94f4f; /* reddish */
+  background-color: #ffe6e6;
+  border: 2px solid #d94f4f;
+}
+
+.deck-card.clubs {
+  color: #111;
+  background-color: #f5f5f5;
+  border: 2px solid #111;
+}
+
+.deck-card.spades {
+  color: #111;
+  background-color: #f5f5f5;
+  border: 2px solid #111;
 }
 
 /* Hover effect */
-.deck-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+
+.deck-card:hover,
+.deck-card:focus {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+  outline: none;
 }
 
-/* Cards container grid (cards.html) */
-.cards-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr; /* 3 columns for cards 2-K */
-  grid-template-rows: auto repeat(4, 1fr); /* Ace row + 4 rows */
-  gap: 20px;
-  max-width: 900px;
-  margin: 30px auto 60px;
-  padding: 0 10px;
-  justify-items: center;
-  position: relative;
-  z-index: 1;
-}
+/* Responsive */
 
-/* Ace card spans all 3 columns, centered on top */
-.ace-card {
-  grid-column: 1 / span 3;
-  grid-row: 1;
-}
-
-/* Individual card style */
-.card img {
-  width: 100%;
-  max-width: 200px;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  user-select: none;
-  display: block;
-}
-
-/* Responsive adjustments */
-@media (max-width: 900px) {
-  .cards-container {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto repeat(8, 1fr);
-  }
-  .ace-card {
-    grid-column: 1 / span 2;
-  }
-  .card img {
-    max-width: 150px;
-  }
-}
-
-@media (max-width: 600px) {
-  .cards-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto repeat(13, 1fr);
-  }
-  .ace-card {
-    grid-column: 1;
-  }
-  .card img {
-    max-width: 100%;
-  }
-}
-
-/* Responsive adjustments for decks on smaller screens */
-@media (max-width: 500px) {
+@media (max-width: 480px) {
   .deck-card {
-    width: 70px;
-    height: 100px;
     font-size: 4rem;
-    margin: 0 10px;
+    width: 75px;
+    height: 110px;
+    padding: 0.7rem 1rem;
+  }
+
+  .title-box {
+    font-size: 2rem;
+    max-width: 280px;
+    padding: 1.5rem 2rem;
   }
 }
