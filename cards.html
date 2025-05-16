@@ -1,47 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Cards</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cards</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<div class="background-overlay"></div>
+  <div class="background-overlay"></div>
 
-<div class="cards-container"></div>
+  <div class="cards-container"></div>
 
-<script>
-  // Get deck from URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const deck = urlParams.get('deck') || 'hearts';
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const deck = urlParams.get('deck') || 'hearts';
 
-  // Card values
-  const cards = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+    // All card values
+    const cards = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+    const container = document.querySelector('.cards-container');
 
-  const container = document.querySelector('.cards-container');
+    // Add body class for background
+    document.body.classList.add('bg-all');
 
-  // Add body class based on deck color
-  if(deck === 'hearts' || deck === 'diamonds') {
-    document.body.classList.add('bg-red');
-  } else {
-    document.body.classList.add('bg-black');
-  }
+    // Create Ace card first (top center)
+    const aceCardDiv = document.createElement('div');
+    aceCardDiv.classList.add('card', 'ace-card');
+    const aceImg = document.createElement('img');
+    aceImg.src = `images/${deck}-A.jpg`;
+    aceImg.alt = `A of ${deck}`;
+    aceCardDiv.appendChild(aceImg);
+    container.appendChild(aceCardDiv);
 
-  // Create card images
-  cards.forEach(card => {
-    const cardDiv = document.createElement('div');
-    cardDiv.classList.add('card');
-
-    const img = document.createElement('img');
-    img.src = `images/${deck}-${card}.jpg`;
-    img.alt = `${card} of ${deck}`;
-    cardDiv.appendChild(img);
-
-    container.appendChild(cardDiv);
-  });
-</script>
+    // Create other cards (2-K)
+    const otherCards = cards.slice(1); // skip 'A'
+    otherCards.forEach(card => {
+      const cardDiv = document.createElement('div');
+      cardDiv.classList.add('card');
+      const img = document.createElement('img');
+      img.src = `images/${deck}-${card}.jpg`;
+      img.alt = `${card} of ${deck}`;
+      cardDiv.appendChild(img);
+      container.appendChild(cardDiv);
+    });
+  </script>
 
 </body>
 </html>
