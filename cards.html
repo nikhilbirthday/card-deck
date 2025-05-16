@@ -1,49 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cards</title>
+  <title>Cards - 52 Things I Love About You</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="bg-all">
 
   <div class="background-overlay"></div>
 
-  <div class="cards-container"></div>
+  <div class="cards-container">
+    <!-- Cards will be dynamically injected here -->
+  </div>
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const deck = urlParams.get('deck') || 'hearts';
-
-    // All card values
-    const cards = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
-    const container = document.querySelector('.cards-container');
-
-    // Add body class for background
-    document.body.classList.add('bg-all');
-
-    // Create Ace card first (top center)
-    const aceCardDiv = document.createElement('div');
-    aceCardDiv.classList.add('card', 'ace-card');
-    const aceImg = document.createElement('img');
-    aceImg.src = `images/${deck}-A.jpg`;
-    aceImg.alt = `A of ${deck}`;
-    aceCardDiv.appendChild(aceImg);
-    container.appendChild(aceCardDiv);
-
-    // Create other cards (2-K)
-    const otherCards = cards.slice(1); // skip 'A'
-    otherCards.forEach(card => {
-      const cardDiv = document.createElement('div');
-      cardDiv.classList.add('card');
-      const img = document.createElement('img');
-      img.src = `images/${deck}-${card}.jpg`;
-      img.alt = `${card} of ${deck}`;
-      cardDiv.appendChild(img);
-      container.appendChild(cardDiv);
-    });
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
