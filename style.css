@@ -30,11 +30,69 @@ body.bg-all .background-overlay {
   background-image: url('images/bg-all.jpg');
 }
 
-/* Cards container grid */
+/* Main container and title image (index.html) */
+.main-container {
+  max-width: 600px;
+  margin: 60px auto 40px;
+  padding: 0 20px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.title-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin-bottom: 40px;
+  user-select: none;
+}
+
+/* Deck container for 4 suits (index.html) */
+.deck-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* Individual deck cards style (index.html) */
+.deck-card {
+  font-size: 5rem;
+  width: 90px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  user-select: none;
+}
+
+/* Deck colors */
+.deck-card.hearts, .deck-card.diamonds {
+  background-color: #d62828; /* red */
+}
+
+.deck-card.clubs, .deck-card.spades {
+  background-color: #111; /* black */
+}
+
+/* Hover effect */
+.deck-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* Cards container grid (cards.html) */
 .cards-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr; /* 3 columns for 2-K cards */
-  grid-template-rows: auto repeat(4, 1fr); /* Ace row + 4 rows below */
+  grid-template-columns: 1fr 1fr 1fr; /* 3 columns for cards 2-K */
+  grid-template-rows: auto repeat(4, 1fr); /* Ace row + 4 rows */
   gap: 20px;
   max-width: 900px;
   margin: 30px auto 60px;
@@ -85,5 +143,15 @@ body.bg-all .background-overlay {
   }
   .card img {
     max-width: 100%;
+  }
+}
+
+/* Responsive adjustments for decks on smaller screens */
+@media (max-width: 500px) {
+  .deck-card {
+    width: 70px;
+    height: 100px;
+    font-size: 4rem;
+    margin: 0 10px;
   }
 }
