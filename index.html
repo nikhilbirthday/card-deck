@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>52 Things I Love About You</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <div class="main-card">
+      <h1>52 Things I Love About You</h1>
+      <p>For Nikhil ♥</p>
+    </div>
+
+    <div class="card-grid">
+      <!-- Generate 52 cards -->
+      <!-- Each links to card.html?card=1, 2, ..., 52 -->
+      <!-- Cards can show ♥, ♠, ♣, ♦, or numbers if you want -->
+      <script>
+        for (let i = 1; i <= 52; i++) {
+          document.write(`
+            <a href="card.html?card=${i}" class="card-link">
+              <div class="card-face">❤️ ${i}</div>
+            </a>
+          `);
+        }
+      </script>
+    </div>
+  </main>
+</body>
+</html>
