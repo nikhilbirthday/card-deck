@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<div class="background-overlay"></div>
+
 <div class="cards-container"></div>
 
 <script>
@@ -20,11 +22,11 @@
 
   const container = document.querySelector('.cards-container');
 
-  // Set background based on deck color
+  // Add body class based on deck color
   if(deck === 'hearts' || deck === 'diamonds') {
-    document.body.style.backgroundImage = "url('images/bg-red.jpg')";
+    document.body.classList.add('bg-red');
   } else {
-    document.body.style.backgroundImage = "url('images/bg-black.jpg')";
+    document.body.classList.add('bg-black');
   }
 
   // Create card images
@@ -33,7 +35,7 @@
     cardDiv.classList.add('card');
 
     const img = document.createElement('img');
-    img.src = `images/${deck}-${card}.jpg`;  // your naming style with dash
+    img.src = `images/${deck}-${card}.jpg`;
     img.alt = `${card} of ${deck}`;
     cardDiv.appendChild(img);
 
