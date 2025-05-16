@@ -7,34 +7,28 @@
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <!-- Title image instead of text -->
-    <img id="title-image" src="images/title-image.jpg" alt="52 Things I Love About You" />
 
-    <div id="decks" class="deck-grid">
-      <div class="deck-card" data-deck="hearts">
-        <div class="suit red">♥</div>
-        <div class="deck-label">Hearts</div>
-      </div>
-      <div class="deck-card" data-deck="diamonds">
-        <div class="suit red">♦</div>
-        <div class="deck-label">Diamonds</div>
-      </div>
-      <div class="deck-card" data-deck="clubs">
-        <div class="suit">♣</div>
-        <div class="deck-label">Clubs</div>
-      </div>
-      <div class="deck-card" data-deck="spades">
-        <div class="suit">♠</div>
-        <div class="deck-label">Spades</div>
-      </div>
-    </div>
-
-    <div id="cards" class="card-grid" style="display:none;"></div>
-
-    <button id="backToDecks" style="display:none;">Back to Decks</button>
+<div class="main-container">
+  <img src="images/title-image.jpg" alt="52 Things I Love About You" class="title-image" />
+  <div class="deck-selection">
+    <div class="deck" data-deck="hearts">♥</div>
+    <div class="deck" data-deck="diamonds">♦</div>
+    <div class="deck" data-deck="clubs">♣</div>
+    <div class="deck" data-deck="spades">♠</div>
   </div>
+</div>
 
-<script src="script.js"></script>
+<script>
+  document.querySelectorAll('.deck').forEach(deck => {
+    deck.addEventListener('click', () => {
+      const deckName = deck.getAttribute('data-deck');
+      window.location.href = `cards.html?deck=${deckName}`;
+    });
+  });
+
+  // Set background for main page
+  document.body.style.backgroundImage = "url('images/bg-black.jpg')";
+</script>
+
 </body>
 </html>
