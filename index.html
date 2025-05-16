@@ -1,36 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>52 Things I Love About You</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>52 Things I Love About You</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="bg-all">
 
-<div class="background-overlay"></div>
+  <div class="background-overlay"></div>
 
-<div class="main-container">
-  <img src="images/title-image.jpg" alt="52 Things I Love About You" class="title-image" />
-  <div class="deck-selection">
-    <div class="deck" data-deck="hearts">♥</div>
-    <div class="deck" data-deck="diamonds">♦</div>
-    <div class="deck" data-deck="clubs">♣</div>
-    <div class="deck" data-deck="spades">♠</div>
+  <div class="main-container">
+    <img src="images/title-image.jpg" alt="52 Things I Love About You" class="title-image" />
+
+    <div class="deck-container">
+      <a href="cards.html?deck=hearts" class="deck-card hearts" title="Hearts">
+        ♥
+      </a>
+      <a href="cards.html?deck=diamonds" class="deck-card diamonds" title="Diamonds">
+        ♦
+      </a>
+      <a href="cards.html?deck=clubs" class="deck-card clubs" title="Clubs">
+        ♣
+      </a>
+      <a href="cards.html?deck=spades" class="deck-card spades" title="Spades">
+        ♠
+      </a>
+    </div>
   </div>
-</div>
-
-<script>
-  document.querySelectorAll('.deck').forEach(deck => {
-    deck.addEventListener('click', () => {
-      const deckName = deck.getAttribute('data-deck');
-      window.location.href = `cards.html?deck=${deckName}`;
-    });
-  });
-
-  // Add body class for main page background
-  document.body.classList.add('bg-black');
-</script>
 
 </body>
 </html>
